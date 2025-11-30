@@ -28,6 +28,25 @@ pipeline {
                 '''
             }
         }
+        stage('Bandit Security Scan') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pip install bandit
+                    mkdir -p security-reports
+                    bandit -r . -f html -o security-reports/bandit-report.html || true
+                '''
+            }
+        }
+        stage('Semgrep Security Scan') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pip install semgrep
+                    semgrep --config auto --json > security-reports/semgrep.json || true
+                '''
+            }
+        }
         stage('Python Security Audit') {
             steps {
                 sh '''

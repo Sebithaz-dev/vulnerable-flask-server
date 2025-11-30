@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_NAME = "pipeline-test"
+        PROJECT_NAME = "vulnerable-server-OCY"
         SONARQUBE_URL = "http://sonarqube:9000"
         SONARQUBE_TOKEN = "sqa_135fbc1b29b75884ec54a41c3ca72b1b2a439b2c"
         TARGET_URL = "http://172.23.41.49:5000"

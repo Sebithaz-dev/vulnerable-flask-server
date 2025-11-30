@@ -34,7 +34,7 @@ pipeline {
                     . venv/bin/activate
                     pip install bandit
                     mkdir -p security-reports
-                    bandit -r . -f html -o security-reports/bandit-report.html || true
+                    bandit -r vulnerable_flask_app.py -f html -o security-reports/bandit-report.html || true
                 '''
             }
         }
@@ -43,7 +43,9 @@ pipeline {
                 sh '''
                     . venv/bin/activate
                     pip install semgrep
+                    mkdir -p security-reports
                     semgrep --config auto --json > security-reports/semgrep.json || true
+                    semgrep --config auto --html > security-reports/semgrep-report.html || true
                 '''
             }
         }

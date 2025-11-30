@@ -45,7 +45,6 @@ pipeline {
                     pip install semgrep
                     mkdir -p security-reports
                     semgrep --config auto --json > security-reports/semgrep.json || true
-                    semgrep --config auto --html > security-reports/semgrep-report.html || true
                 '''
             }
         }
@@ -81,7 +80,7 @@ pipeline {
                 NVD_API_KEY = credentials('nvdApiKey')
             }
             steps {
-                dependencyCheck additionalArguments: "--scan . --format HTML --out dependency-check-report --enableExperimental --enableRetired --nvdApiKey ${NVD_API_KEY}", odcInstallation: 'DependencyCheck'
+                dependencyCheck additionalArguments: "--scan requirements.txt --format HTML --out dependency-check-report --enableExperimental --enableRetired --nvdApiKey ${NVD_API_KEY}", odcInstallation: 'DependencyCheck'
             }
         }
 
